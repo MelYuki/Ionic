@@ -10,9 +10,10 @@
   <!-- <p> {{ productToAdd }} </p> -->
   <ion-item>
     <ion-input
-      placeholder="Nom du produit"
-      [(ngModel)]="productToAdd">
-    </ion-input>
+    placeholder="Nom du produit"
+    [(ngModel)]="productToAdd"
+    (keyup.Enter)="add()"></ion-input>
+
     <ion-button size="medium" (click)="add()">
       <ion-icon name="add"></ion-icon>
     </ion-button>
@@ -26,7 +27,7 @@
     <ion-item
     *ngFor="let product of productList"
     (click)="actionSheet(product)">
-    
+
       <ion-label> {{ product.name }} </ion-label>
       <ion-icon
       *ngIf="product.isChecked"

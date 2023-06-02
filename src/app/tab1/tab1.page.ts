@@ -24,7 +24,7 @@ export class Tab1Page {
 
   add() : void {
     // Si l'input existe et qu'il est différent de rien...
-    if(this.productToAdd && this.productToAdd.trim() != "") {
+    if(this.productToAdd && this.productToAdd.trim() !== "") {
       // En double?
       if(!this.productList.find(p => p.name.toLowerCase() === this.productToAdd?.trim().toLowerCase())) {
         // Ajout dans la liste
@@ -47,14 +47,21 @@ export class Tab1Page {
       header: product.name,
       buttons: [
         {
-          text: product.isChecked ? "Décocher" : "Cocher"
+          text: product.isChecked ? "Décocher" : "Cocher",
+          icon: product.isChecked ? "square-outline" : "checkbox-outline",
+          handler: () => { product.isChecked = !product.isChecked }
         },
         {
           text: "Supprimer",
-          role: "destructive" //pour ios
+          icon: "trash",
+          role: "destructive", //pour ios
+          handler: () => {
+            this.productList = this.productList.filter(p => p !== product)
+          }
         },
         {
           text: "Annuler",
+          icon: "close",
           role: "cancel" //pour ios
         },
       ]
