@@ -21,4 +21,23 @@ export class Tab1Page {
     { name: "Pomme", isChecked: false},
     { name: "Poire", isChecked: true}
   ]
+
+  add() : void {
+    // Si l'input existe et qu'il est différent de rien...
+    if(this.productToAdd && this.productToAdd.trim() != "") {
+      // En double?
+      if(!this.productList.find(p => p.name.toLowerCase() === this.productToAdd?.trim().toLowerCase())) {
+        // Ajout dans la liste
+        this.productList = [
+          ...this.productList,
+          {
+            name: this.productToAdd,
+            isChecked: false
+          }
+        ]
+      }
+    }
+    // Refresh l'input à 0
+    this.productToAdd = undefined
+  }
 }
