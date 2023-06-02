@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { ActionSheetController, IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { Product } from './products';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
   imports: [IonicModule, ExploreContainerComponent, CommonModule, FormsModule],
 })
 export class Tab1Page {
-  constructor() {}
+  constructor(private _actionSheet : ActionSheetController) {}
 
   productToAdd : string|undefined 
 
@@ -39,5 +39,28 @@ export class Tab1Page {
     }
     // Refresh l'input à 0
     this.productToAdd = undefined
+  }
+
+  async actionSheet(product : Product) {
+    // Créa du menu actionSheet
+    const otherSheet = await this._actionSheet.create({
+      header: product.name,
+      buttons: [
+        {
+          text: product.isChecked ? "Décocher" : "Cocher"
+        },
+        {
+          text: "Supprimer",
+          role: "destructive" //pour ios
+        },
+        {
+          text: "Annuler",
+          role: "cancel" //pour ios
+        },
+      ]
+    })
+
+    // Affichage du menu
+    otherSheet.present()
   }
 }
